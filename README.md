@@ -641,9 +641,9 @@ ALTER TABLE IF EXISTS public.store
     ON DELETE RESTRICT;
 CREATE INDEX IF NOT EXISTS idx_unq_manager_staff_id
     ON public.store(manager_staff_id);
-
-END;
 '''
+END;
+
 ## **Solving Business Problems**
 
 ### Solutions Implemented:
