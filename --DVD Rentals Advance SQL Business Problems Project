@@ -5,6 +5,7 @@
 Out of that total, get the percentage of total each actor contributed to total revenue.  
 For the Actor who has the highest percentage give He or She the title "Best Selling Actor”*/
 
+```sql
 -- join tables and get the number of orders for each actor and the amount generated from each actor in sales
 WITH actor_count AS (
 SELECT A.actor_id, CONCAT(A.first_name,' ' ,A.last_name ) full_name, A.last_name, COUNT(A.actor_id) as actor_cnt, SUM(amount) actor_revenue
@@ -40,13 +41,14 @@ FROM total_revenue
 SELECT *
 FROM rental
 ORDER BY rental_date
-
+```
 
 /* 2.
 Calculate the monthly percentage change of total_revenue over the last 5 months for each category.
 Retrieve the month for each category that had the highest month-over-month percentage change.
 */
 
+```sql
 --filter data to last 5 months, get the total revenue for each category and previous month revenue
 WITH cte AS(
 SELECT CA.category_id as category_id, name as Category_name, 
@@ -79,13 +81,14 @@ CONCAT('$',Total_revenue) as Total_revenue, CONCAT('$',previous_amount) as Previ
 CONCAT(ROUND(percentage_change_over_time::decimal,2), '%') as percentage_change_over_time
 FROM ranking
 WHERE rank = 2
- 
+ ```
 /* 3.
 What is the average duration of all DVD's that were rented for each rating.
 If the Average duration is above a hour and a half say "Customers prefer extended movies"
 if below a hour and a half say "Customers prefer short films"
 */
 
+```sql
 --get the avg duration of films for each rating
 WITH rating AS(
 SELECT rating, AVG(length/60) as avg_duration_of_film
@@ -100,11 +103,13 @@ SELECT  rating, ROUND(avg_duration_of_film,3) as avg_duration_of_film,
 CASE WHEN avg_duration_of_film < 1.5 THEN 'Customers prefer short films' ELSE 'Customers prefer extended movies' END
 as customers_preference
 FROM rating
-
+```
 /* 4.
 Create a pivot table that show the months in columns and the stores in rows.  
 The values within the columns should reflect the total payment amount of each month.
 */
+
+```sql
 --retrieve the columns from the table stores you created.  Add all the months together to get the total amount of each store.
 SELECT
 	stores.store_id, 
@@ -133,13 +138,14 @@ R.staff_id = S.staff_id INNER JOIN store as ST ON S.store_id = ST.store_id
 GROUP BY ST.store_id, payment_date) as stores
 GROUP BY stores.store_id
 ORDER BY stores.store_id
-
+```
 /* 5.
 Inventory Stock Alerts
 Query products with stock levels below a certain threshold (e.g., less than 3 units).
 Challenge: Include last restock date.  
 */
 
+```sql
 --count # of films by title in each store.  Find the last_update date of the inventory, filter table by stock less than 3
 SELECT title,store_id, COUNT(I.film_id) as inventory_stock, MAX(I.last_update) as last_update
 FROM inventory as I INNER JOIN film as F ON
@@ -147,11 +153,13 @@ I.film_id = F.film_id
 GROUP BY store_id, title
 HAVING COUNT(I.film_id) < 3
 ORDER BY 2,3
-
+```
 /* 6.
  get the total amount of customers for each  country whose country name start with either an 'A' or 'S'
  what country has the most customers?
 */
+
+```sql
 --get the count of customers with names that start with 'a' or 's', then rank countries by number of customers
 WITH customers_by_country AS (
 SELECT country, count(C.customer_id) count_of_customers, RANK() OVER(ORDER BY count(C.customer_id) DESC ) ranking
@@ -161,6 +169,7 @@ ON A.city_id = CI.city_id INNER Join country as CO
 ON CI.country_id = CO.country_id
 WHERE country LIKE 'A%' OR country LIKE 'S%'
 GROUP BY country
+```
 ORDER BY country)
 
 
