@@ -646,8 +646,7 @@ END;
 ```
 ## **Solving Business Problems**
 
-### Solutions Implemented:
-```sql
+### Solutions Implemented:```sql
 /* 1. Name the top 5 actors that are in movies with the most rentals.  How much revenue did each actor generate in total.  
 Out of that total, get the percentage of total each actor contributed to total revenue.  
 For the Actor who has the highest percentage give He or She the title "Best Selling Actor”*/
