@@ -17,7 +17,7 @@ An ERD diagram is included to visually represent the database schema and relatio
 ## **Database Setup & Design**
 
 ### **Schema Structure**
-'''sql
+```sql
 BEGIN;
 
 
@@ -643,7 +643,7 @@ CREATE INDEX IF NOT EXISTS idx_unq_manager_staff_id
     ON public.store(manager_staff_id);
 
 END;
-'''
+```
 ## **Solving Business Problems**
 
 ### Solutions Implemented:
