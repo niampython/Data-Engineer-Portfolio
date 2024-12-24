@@ -17,10 +17,10 @@ An ERD diagram is included to visually represent the database schema and relatio
 ## **Database Setup & Design**
 
 ### **Schema Structure**
-'''sql
+
 BEGIN;
 
-
+'''sql
 CREATE TABLE IF NOT EXISTS public.actor
 (
     actor_id integer NOT NULL DEFAULT nextval('actor_actor_id_seq'::regclass),
